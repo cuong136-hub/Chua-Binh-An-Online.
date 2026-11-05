@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102724">
+  <meta name="description" content="Nguyễn Ngọc Cường — Chùa Bình An Online. Vào chùa cùng bạn bè bằng mã phòng, thắp hương và cầu bình an.">
+  <title>Nguyễn Ngọc Cường | Chùa Bình An Online</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none"><path d="M24 9c-7 7-7 15 0 21 7-6 7-14 0-21Z" stroke="currentColor" stroke-width="1.8"/><path d="M23 29C15 17 7 19 6 23c0 9 8 12 18 13 10-1 18-4 18-13-1-4-9-6-17 6" stroke="currentColor" stroke-width="1.8"/><path d="M9 38c10 4 20 4 30 0M16 42h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div><p class="brand-caption">KHÔNG GIAN TÂM AN</p><h1>NGUYỄN NGỌC CƯỜNG</h1></div>
+      </div>
+      <div class="header-right">
+        <div class="online-pill"><span class="online-dot"></span><span id="onlineCount">0</span> người đang ở chùa</div>
+        <button class="icon-button" id="soundButton" aria-label="Bật hoặc tắt âm thanh" title="Bật/tắt âm thanh">♫ <span id="soundStatus">Tắt nhạc</span></button>
+      </div>
+    </header>
+    <main class="layout">
+      <section class="world-column" aria-label="Thế giới game chùa Bình An">
+        <div class="world-toolbar">
+          <div class="heading-group"><span class="eyebrow"><span class="little-star">✦</span> CHÙA BÌNH AN <span class="little-star">✦</span></span><h2>Một góc bình yên giữa thế gian</h2></div>
+          <div class="room-chip" id="roomChip" hidden><span class="room-chip-label">MÃ PHÒNG</span><strong id="roomIdTop">------</strong><button id="copyRoomButton" title="Sao chép ID phòng" aria-label="Sao chép mã phòng">⧉</button></div>
+        </div>
+        <div class="game-frame" id="gameFrame">
+          <canvas id="templeCanvas" width="1120" height="700" aria-label="Sân chùa với tượng Phật, khói hương và nhân vật"></canvas>
+          <div class="game-top-label"><span class="live-light"></span> SÂN CHÙA · HOÀNG HÔN</div>
+          <div class="game-music-label" id="gameStatus">Ngắm cảnh chùa và nghe tiếng chuông an yên</div>
+          <div class="action-toast" id="actionToast" role="status" aria-live="polite"></div>
+          <div class="game-bottom-overlay" id="gameActions" hidden>
+            <div class="movement-hint"><span class="keycap">W</span><span class="keycap">A</span><span class="keycap">S</span><span class="keycap">D</span><span class="hint-text">để di chuyển</span></div>
+            <div class="ritual-actions">
+              <button class="ritual-btn" id="incenseButton"><span class="ritual-symbol">♨</span> Thắp hương</button>
+              <button class="ritual-btn primary" id="prayButton"><span class="ritual-symbol">✧</span> Cầu bình an</button>
+              <button class="ritual-btn" id="bellButton"><span class="ritual-symbol">♫</span> Thỉnh chuông</button>
+            </div>
+          </div>
+          <div class="touch-controls" id="touchControls" hidden aria-label="Điều khiển nhân vật trên điện thoại">
+            <button data-dir="up" aria-label="Lên">▲</button>
+            <div><button data-dir="left" aria-label="Trái">◀</button><button data-dir="down" aria-label="Xuống">▼</button><button data-dir="right" aria-label="Phải">▶</button></div>
+          </div>
+        </div>
+        <div class="world-footer"><span>❀&nbsp; Nơi gửi một lời nguyện lành</span><span>Di chuyển bằng WASD / phím mũi tên · Dùng nút để tương tác</span></div>
+      </section>
+      <aside class="side-panel" aria-label="Thông tin phòng và trò chuyện">
+        <div class="sidebar-header"><span class="eyebrow">GIAN PHÒNG CỦA BẠN</span><h2>Cùng nhau an yên <span>☼</span></h2><p>Mời bạn bè ghé chùa qua mã phòng riêng.</p></div>
+        <div class="room-details" id="roomDetails">
+          <div><span class="micro-label">PHÒNG CỦA BẠN</span><span class="room-id-big" id="roomIdSide">CHƯA VÀO PHÒNG</span></div>
+          <div class="room-buttons"><button class="small-button" id="inviteButton" disabled>⧉ Sao chép link mời</button><button class="small-button subtle" id="leaveButton" disabled>Rời phòng</button></div>
+        </div>
+        <div class="stats-grid"><div><span class="stat-icon">♨</span><strong id="incenseCount">0</strong><span>Nén hương</span></div><div><span class="stat-icon">✧</span><strong id="prayerCount">0</strong><span>Lời cầu</span></div><div><span class="stat-icon">♫</span><strong id="bellCount">0</strong><span>Tiếng chuông</span></div></div>
+        <div class="chat-section"><div class="chat-heading"><div><span class="eyebrow">CHIA SẺ ĐIỀU LÀNH</span><h3>Trò chuyện trong chùa</h3></div><span id="chatOnline">0 người</span></div>
+          <div class="chat-list" id="chatList" role="log" aria-label="Tin nhắn trong phòng" aria-live="polite"><div class="chat-empty">✦<p>Hãy vào phòng để gửi lời chào đến mọi người.</p></div></div>
+          <form class="chat-form" id="chatForm"><input type="text" id="chatInput" maxlength="170" placeholder="Gửi lời chúc bình an..." disabled aria-label="Nội dung tin nhắn"><button type="submit" id="sendButton" disabled aria-label="Gửi tin nhắn">➤</button></form>
+        </div>
+        <div class="visitors"><span class="micro-label">KHÁCH GHÉ CHÙA</span><div class="visitors-row" id="visitorsRow"><span class="waiting-visitors">Chưa có ai trong phòng.</span></div></div>
+      </aside>
+    </main>
+    <footer class="site-footer">Được tạo với sự tôn trọng và lòng thiện lành · <strong>Nguyễn Ngọc Cường</strong> <span>•</span> Trải nghiệm giải trí, không thay thế sinh hoạt tín ngưỡng thực tế.</footer>
+  </div>
+
+  <div class="modal-backdrop" id="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+    <section class="welcome-card">
+      <div class="welcome-ornament"><span>❁</span></div>
+      <div class="welcome-eyebrow">✦ CHÀO MỪNG ĐẾN VỚI ✦</div>
+      <h2 id="welcomeTitle">Chùa Bình An</h2>
+      <p class="welcome-subtitle">Dừng lại một chút, thắp nén hương thơm, gửi lời an lành và gặp gỡ bạn bè.</p>
+      <label for="nameInput">Tên người chơi</label><input id="nameInput" maxlength="22" placeholder="Ví dụ: Ngọc Cường" autocomplete="nickname">
+      <div class="color-label">Chọn màu trang phục</div>
+      <div class="colors" id="colors"><button type="button" data-color="#69c2ae" class="selected" style="--c:#69c2ae" aria-label="Màu xanh ngọc"></button><button type="button" data-color="#e9a66f" style="--c:#e9a66f" aria-label="Màu cam"></button><button type="button" data-color="#a3a0df" style="--c:#a3a0df" aria-label="Màu tím"></button><button type="button" data-color="#ef9db0" style="--c:#ef9db0" aria-label="Màu hồng"></button><button type="button" data-color="#83b6e8" style="--c:#83b6e8" aria-label="Màu xanh dương"></button><button type="button" data-color="#c7af69" style="--c:#c7af69" aria-label="Màu vàng"></button></div>
+      <button class="join-primary" id="createButton">✦ Tạo phòng của riêng mình</button>
+      <div class="or-divider"><span></span>HOẶC VÀO CÙNG BẠN BÈ<span></span></div>
+      <div class="join-row"><input id="joinInput" maxlength="6" placeholder="NHẬP ID PHÒNG" aria-label="Nhập mã ID phòng"><button id="joinButton">Vào phòng →</button></div>
+      <p class="modal-error" id="modalError" role="alert"></p>
+      <p class="welcome-note">Tối đa 16 người/phòng · Phòng tồn tại khi máy chủ hoạt động.</p>
+    </section>
+  </div>
+  <script src="/game.js" defer></script>
+</body>
+</html>
